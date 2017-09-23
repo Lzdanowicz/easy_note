@@ -4,7 +4,8 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './client/client.js'
+    './client/client.js',
+    './static/styles.less'
   ],
   output: {
     path: require("path").resolve("./dist"),
@@ -35,7 +36,23 @@ module.exports = {
           }, {
               loader: "less-loader" // compiles Less to CSS
           }]
-      }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              outputPath: 'fonts/'
+            }
+          }]
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[hash].[ext]',
+        }
+      },
     ]
   }
 }

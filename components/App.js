@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AppHeader from './AppHeader';
+import Signin from './Signin';
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
@@ -7,7 +9,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1> Simple Note </h1>
+        <AppHeader />
+        <Signin />
       </div>
     )
   }
