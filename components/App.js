@@ -16,17 +16,16 @@ class App extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return state
-// }
+function mapStateToProps(state) {
+   return state
+}
 
 
-//wrapped with the dispatcher so we don't have to continuiously call it
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(actions, dispatch)
-//   }
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
 
 // export default connect(mapStateToProps, mapDispatchToProps)(App)
 

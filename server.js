@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var redirect = require('express-redirect');
+var session = require('express-session');
 
 
 //import models
@@ -34,8 +36,6 @@ app.use(router);
 app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}))
 app.use(webpackHotMiddleware(compiler))
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 var expressValidator = require('express-validator');
 
@@ -49,7 +49,20 @@ app.use(expressValidator({
 ));
 
 
+var isAuthenticated = function (req, res, next) {
+ 	if (req.isAuthenticated())
+    	return next();
+  	res.redirect('/');
+}
 
+app.use(session({
+	secret: 'cat',
+	resave: false,
+	saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.get('/', (req, res) => {
@@ -98,7 +111,7 @@ app.post('/register', (req, res) => {
 
 });
 
-passport.use(new LocalStrategy(
+passport.use('login', new LocalStrategy(
 	{usernameField: 'email'},
 	function(username, password, done) {
 		User.getUserByEmail(username, function(err, user) {
@@ -107,8 +120,6 @@ passport.use(new LocalStrategy(
 				console.log("UNKNOWN USER")
 				return done(null, false, {message: "Unknown User"})
 			} else {
-				console.log(" User Found ")
-				console.log(user)
 				User.comparePassword(password, user.password, function(err, isMatch){
 					if (err) throw err;
 					if(isMatch){
@@ -121,7 +132,15 @@ passport.use(new LocalStrategy(
 			}
 		})
 	}
-))
+));
+
+app.post('/login', 
+	passport.authenticate('login'),
+	function(req, res) {
+		res.json(req.user)
+	}
+)
+
 
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
@@ -133,12 +152,19 @@ passport.deserializeUser(function(id, done) {
 	})
 })
 
-app.post('/login', passport.authenticate('local', 
-	{ 
-		successRedirect: '/',
-    	failureRedirect: '/login'
-    })
-);
+//routes for pulling user information in the api
+
+app.get('/api/notes', isAuthenticated, (req, res) => {
+	db.open(function(err,db){ // <------everything wrapped inside this function
+         db.collection('answer', function(err, collection) {
+             collection.find( {_id:req.user.id } ).toArray(function(err, items) {
+                 console.log(items);
+                 res.send(items);
+             });
+         });
+     });
+})
+
 
 
 app.set('port', process.env.PORT || 3000);

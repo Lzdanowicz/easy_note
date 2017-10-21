@@ -46,8 +46,8 @@ class LogInForm extends Component {
     		if (error) {
     			console.log(error)
     		} else {
-    			console.log(this.state)
-    			console.log(response)
+    			console.log(response.body);
+    			window.location = '/notebook';
     		}
     	});
     }
