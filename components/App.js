@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import AppHeader from './AppHeader';
 import Signin from './Signin';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Notebook from './Notebook';
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+  }
+
+  if (loggedIn) {
+      return (
+        <Redirect to='notebook'/>
+      )
+  }
+    
+
   render() {
     return (
       <div>
         <AppHeader />
-        <Signin />
+        <Signin history={this.props.history} />
       </div>
     )
   }

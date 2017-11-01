@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ajax from 'superagent';
+import { Redirect } from 'react-router-dom';
 
 
 class LogInForm extends Component {
@@ -37,7 +38,7 @@ class LogInForm extends Component {
     }
 
     sendLogInData() {
-    	console.log(this.state)
+    	console.log(this.props);
 
     	var data = JSON.stringify(this.state)
     	ajax.post('/login')
@@ -47,7 +48,7 @@ class LogInForm extends Component {
     			console.log(error)
     		} else {
     			console.log(response.body);
-    			window.location = '/notebook';
+    			this.props.history.push('notebook');
     		}
     	});
     }

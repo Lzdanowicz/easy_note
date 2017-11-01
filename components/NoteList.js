@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import NoteList from './NoteList';
-import CurrentNote from './CurrentNote';
 
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
-class Notebook extends Component {
+class NoteList extends Component {
 
   render() {
     return (
       <div>
-        <NoteList />
-        <CurrentNote />
+        <h2>List of Notes Here</h2>
       </div>
     )
   }
@@ -30,4 +27,4 @@ function mapDispatchToProps(dispatch) {
 
 
 
-export default Notebook
+export default NoteList

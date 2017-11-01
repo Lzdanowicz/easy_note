@@ -29,7 +29,7 @@ class SignIn extends Component {
     renderActiveTab() {
         if (this.state.activeTab === 'log-in') {
             return (
-                <LogInForm />
+                <LogInForm/>
             )
         } else {
             return (
@@ -43,7 +43,7 @@ class SignIn extends Component {
         let activeForm = null;
 
         if (this.state.activeTab === 'log-in') {
-            activeForm = <LogInForm />
+            activeForm = <LogInForm history={this.props.history} />
         } else {
             activeForm = <SignUpForm />
         }
