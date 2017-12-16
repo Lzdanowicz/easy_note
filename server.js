@@ -11,6 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var redirect = require('express-redirect');
 var session = require('express-session');
+var mongoose = require('mongoose');
 
 
 //import models
@@ -65,7 +66,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
 	res.sendFile(path.resolve('client/index.html'));
 });
 
@@ -154,15 +155,24 @@ passport.deserializeUser(function(id, done) {
 
 //routes for pulling user information in the api
 
-app.get('/api/notes', isAuthenticated, (req, res) => {
-	db.open(function(err,db){ // <------everything wrapped inside this function
-         db.collection('answer', function(err, collection) {
-             collection.find( {_id:req.user.id } ).toArray(function(err, items) {
-                 console.log(items);
-                 res.send(items);
-             });
-         });
-     });
+app.all('/api/*', (req, res, next) => {
+  if (req.method === 'DELETE' || req.method === 'POST' || req.method === 'PUT') {
+    if (!req.session || !req.session.user) {
+      res.status(403).send({
+        message: 'You are not authorized to perform the operation',
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+app.get('/api/notes', isAuthenticated, (req, res) => { 
+	User.getUserById(req.user.id, function(err, user) {
+		res.json(user)
+	})
 })
 
 

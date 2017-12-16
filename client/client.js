@@ -6,15 +6,19 @@ import App from '../components/App';
 import Notebook from '../components/Notebook';
 import createBrowserHistory from 'history/createBrowserHistory';
 
+
+
 const history = createBrowserHistory();
 
 //seperate log in and actual app framework
+
+
 render(
 	<BrowserRouter>
 		<div>
 			<Switch>
 				<Route exact path="/" component={App} history={history} />
-				<Route path='/notebook' component={Notebook} />
+				<Route path='/notebook' component={Notebook}/>
 			</Switch>
 		</div>
 	</BrowserRouter>,

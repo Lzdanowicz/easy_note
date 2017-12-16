@@ -7,8 +7,8 @@ class CurrentNote extends Component {
 
   render() {
     return (
-      <div>
-        <p>Edit your note here</p>
+      <div className="text-area-wrapper">
+        <input type="text" />
       </div>
     )
   }

@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
+import Note from './Note';
 
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 
 class NoteList extends Component {
 
+  constructor(props) {
+    super(props)
+
+    console.log(props)
+
+  }
+
+  componentDidMount() {
+
+  }
+
   render() {
+    console.log("notelist render")
     return (
-      <div>
-        <h2>List of Notes Here</h2>
+      <div className="sidebar-wrapper">
+        <ul>
+            {this.props.userData.noteList.map((option, i) =>
+              <Note option={option} key={i} />
+            )}
+        </ul>
       </div>
     )
   }

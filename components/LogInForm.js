@@ -38,8 +38,7 @@ class LogInForm extends Component {
     }
 
     sendLogInData() {
-    	console.log(this.props);
-
+    	
     	var data = JSON.stringify(this.state)
     	ajax.post('/login')
 		.send(this.state)
@@ -47,7 +46,6 @@ class LogInForm extends Component {
     		if (error) {
     			console.log(error)
     		} else {
-    			console.log(response.body);
     			this.props.history.push('notebook');
     		}
     	});
