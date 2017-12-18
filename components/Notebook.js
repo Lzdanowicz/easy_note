@@ -13,9 +13,7 @@ class Notebook extends Component {
     super(props)
 
     this.state = {
-      userData: {
-
-      }
+      userData: {}
     };
 
   }
@@ -29,11 +27,9 @@ class Notebook extends Component {
 
     Request.get(url)
     .then((response) => {
-      console.log(response)
-      response.json()
-    }).then((response) => {
+      console.log(response.body)
       this.setState({
-        userData: response
+        userData: response.body
       })
     })
   }
@@ -44,7 +40,7 @@ class Notebook extends Component {
       <div>
         <AppHeader />
         <div className="content-wrap">
-          <NoteList noteList={this.state.userData} />
+          <NoteList noteList={this.state.userData.notes} />
           <CurrentNote />
         </div>
       </div>

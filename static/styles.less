@@ -19,6 +19,7 @@
 
 body {
 	margin: auto;
+	height:100vh;
 }
 
 .app-nav {
@@ -247,26 +248,30 @@ body {
 /* NOTBOOK STYLES */
 
 .content-wrap {
-
+	height: 100vh;
 }
 
 .sidebar-wrapper {
-	position: absolute;
-	left: 0;
-	top: 30px;
+	width: 15%;
+	float: left;
 	height: 100%;
+	border-right: 1px solid #f0f0f0;
 
 	ul {
 		list-style: none;
+		padding: 0;
+		overflow: auto;
+
+		li {
+			font-size: 22px;
+			height: 40px;
+			padding: 20px 25px;
+		}
 	}
 }
 
 .text-area-wrapper {
-	position: absolute;
-	left: 320px;
-	top: 30px;
-	left: 0;
-	height: 100%;
+	
 
 	input {
 		width: 900px;

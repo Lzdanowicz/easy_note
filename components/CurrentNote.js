@@ -8,7 +8,6 @@ class CurrentNote extends Component {
   render() {
     return (
       <div className="text-area-wrapper">
-        <input type="text" />
       </div>
     )
   }

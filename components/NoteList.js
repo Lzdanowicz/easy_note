@@ -22,7 +22,7 @@ class NoteList extends Component {
     return (
       <div className="sidebar-wrapper">
         <ul>
-            {this.props.userData.noteList.map((option, i) =>
+            {this.props.noteList.map((option, i) =>
               <Note option={option} key={i} />
             )}
         </ul>

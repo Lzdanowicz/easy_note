@@ -66,7 +66,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get('*', (req, res) => {
+app.get(/^\/(?!api).*/, (req, res) => {
+	console.log("WRONG FUNCTION");
 	res.sendFile(path.resolve('client/index.html'));
 });
 
@@ -170,6 +171,7 @@ app.all('/api/*', (req, res, next) => {
 });
 
 app.get('/api/notes', isAuthenticated, (req, res) => { 
+	console.log("YOLO IN HERE")
 	User.getUserById(req.user.id, function(err, user) {
 		res.json(user)
 	})
